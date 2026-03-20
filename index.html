@@ -24,11 +24,16 @@
             100% { transform: scale(1); opacity: 1; }
         }
         .sync-active { animation: pulse-green 2s infinite; }
+        @media (min-width: 768px) {
+            .px-2 { padding-left: 0.75rem; padding-right: 0.75rem; }
+            table input[type="text"] { font-size: 0.875rem; }
+            table input[type="date"] { font-size: 0.8rem; }
+        }
     </style>
 </head>
-<body class="bg-gray-100 min-h-screen p-4 md:p-8">
+<body class="bg-gray-100 min-h-screen p-3 md:p-6">
 
-    <div id="app" class="max-w-6xl mx-auto space-y-6">
+    <div id="app" class="max-w-[1400px] mx-auto space-y-6">
         <!-- Header & Configuración Global -->
         <header class="bg-white rounded-xl shadow-sm p-6 flex flex-col md:flex-row justify-between items-center gap-4 border border-gray-200">
             <div class="flex items-center gap-4">
@@ -65,7 +70,7 @@
             </div>
         </header>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <!-- SECCIÓN COLONES (CRC) -->
             <section class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200 flex flex-col">
                 <div class="header-green p-4 flex justify-between items-center">
@@ -88,11 +93,11 @@
                         <thead class="text-xs text-gray-500 uppercase bg-gray-50 border-b">
                             <tr>
                                 <th class="w-8"></th>
-                                <th class="px-2 py-3">Fecha</th>
+                                <th class="px-2 py-3" style="width:90px">Fecha</th>
                                 <th class="px-2 py-3">Concepto</th>
-                                <th class="px-2 py-3">Monto</th>
-                                <th class="px-2 py-3 text-center">Pagado</th>
-                                <th class="px-2 py-3 text-right">Saldo</th>
+                                <th class="px-2 py-3" style="width:110px">Monto</th>
+                                <th class="px-2 py-3 text-center" style="width:56px">Pagado</th>
+                                <th class="px-2 py-3 text-right" style="width:110px">Saldo</th>
                                 <th class="w-8"></th>
                             </tr>
                         </thead>
@@ -137,11 +142,11 @@
                         <thead class="text-xs text-gray-500 uppercase bg-gray-50 border-b">
                             <tr>
                                 <th class="w-8"></th>
-                                <th class="px-2 py-3">Fecha</th>
+                                <th class="px-2 py-3" style="width:90px">Fecha</th>
                                 <th class="px-2 py-3">Concepto</th>
-                                <th class="px-2 py-3">Monto</th>
-                                <th class="px-2 py-3 text-center">Pagado</th>
-                                <th class="px-2 py-3 text-right">Saldo</th>
+                                <th class="px-2 py-3" style="width:110px">Monto</th>
+                                <th class="px-2 py-3 text-center" style="width:56px">Pagado</th>
+                                <th class="px-2 py-3 text-right" style="width:110px">Saldo</th>
                                 <th class="w-8"></th>
                             </tr>
                         </thead>
@@ -199,12 +204,23 @@
         //  Configuración del proyecto → General → Tus apps → Config
         // =========================================================
         const firebaseConfig = {
-            apiKey:            "AIzaSyCASutGTC3bJPsGJHUmxZaHUMDK0isMWiw",
-            authDomain:        "flujo-de-caja-d49b8.firebaseapp.com",
-            projectId:         "flujo-de-caja-d49b8",
-            storageBucket:     "flujo-de-caja-d49b8.firebasestorage.app",
-            messagingSenderId: "415973787595",
-            appId:             "1:415973787595:web:e205a799f260e7541c584e"
+            // Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyCASutGTC3bJPsGJHUmxZaHUMDK0isMWiw",
+  authDomain: "flujo-de-caja-d49b8.firebaseapp.com",
+  projectId: "flujo-de-caja-d49b8",
+  storageBucket: "flujo-de-caja-d49b8.firebasestorage.app",
+  messagingSenderId: "415973787595",
+  appId: "1:415973787595:web:e205a799f260e7541c584e"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
         };
 
         // =========================================================
@@ -371,12 +387,12 @@
 
                 row.innerHTML = `
                     <td class="px-2 py-3 cursor-grab text-gray-300 group-hover:text-green-600"><i data-lucide="grip-vertical" class="w-4 h-4"></i></td>
-                    <td class="px-2 py-2"><input type="date" value="${item.date}" onchange="updateItem('${type}', ${item.id}, 'date', this.value)" class="bg-transparent border-none text-xs w-full"></td>
-                    <td class="px-2 py-2"><input type="text" value="${item.concept}" onchange="updateItem('${type}', ${item.id}, 'concept', this.value)" class="bg-transparent border-none font-medium w-full"></td>
+                    <td class="px-2 py-2"><input type="date" value="${item.date}" onchange="updateItem('${type}', ${item.id}, 'date', this.value)" class="bg-transparent border-none text-xs" style="width:82px"></td>
+                    <td class="px-2 py-2"><input type="text" value="${item.concept}" onchange="updateItem('${type}', ${item.id}, 'concept', this.value)" class="bg-transparent border-none font-medium w-full min-w-[140px]"></td>
                     <td class="px-2 py-2">
                         <div class="flex items-center text-xs font-bold">
                             <span class="mr-1">${symbol}</span>
-                            <input type="number" value="${item.amount}" onchange="updateItem('${type}', ${item.id}, 'amount', this.value)" class="bg-transparent border-none w-24 text-right">
+                            <input type="number" value="${item.amount}" onchange="updateItem('${type}', ${item.id}, 'amount', this.value)" class="bg-transparent border-none w-28 text-right">
                         </div>
                     </td>
                     <td class="px-2 py-2 text-center">
